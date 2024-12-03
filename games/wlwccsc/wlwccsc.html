@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waxed Copper Clicker</title>
+    <link rel="stylesheet" href="/games/wlwccsc/wlwccsc.css">
+</head>
+
+<body>
+    <h1>Waxed Lightly Weathered Cut Copper Stairs Clicker</h1>
+    <h2>Wax Level: <span id="waxLevel">0</span></h2>
+    <h2>Points: <span id="points">0</span></h2>
+    <div id="waxProgress">
+        <div id="waxFill" style="width: 0%;"></div>
+    </div>
+    <div id="block" onclick="clickBlock()">
+        <img src="/games/wlwccsc/images/WLWCCSC.jpg" alt="Waxed Lightly Weathered Cut Copper Stairs" id="copperImage">
+        <div id="particle"></div>
+    </div>
+    <div id="upgrades">
+        <button class="button" id="upgradeClick" onclick="buyUpgrade('click')" disabled>Upgrade Click Power (Cost:
+            50)</button>
+        <button class="button" id="buyWorker" onclick="buyUpgrade('worker')" disabled>Hire Copper Golem (Cost:
+            100)</button>
+        <button class="button" id="speedWorker" onclick="buyUpgrade('speed')" disabled>Increase Copper Golem Speed
+            (Cost: 150)</button>
+        <button class="button" id="buypickaxe" onclick="buyUpgrade('pickaxe')" disabled>Buy a Pickaxe (Cost:
+            200)</button>
+        <button class="button" id="upgradepickaxe" onclick="buyUpgrade('upickaxe')" disabled>Upgrade Pickaxe (Cost:
+            300)</button>
+    </div>
+    <div id="prestige">
+        <button class="button" id="prestigeButton" onclick="prestige()" disabled>Prestige for Wax Coins</button>
+    </div>
+    <button id="muteButton" onclick="toggleMute()">Mute</button>
+    <div id="tooltip"></div>
+
+    <script src="/games/wlwccsc/wlwccsc.js"></script>
+</body>
+
+</html>
