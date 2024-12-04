@@ -8,6 +8,11 @@ body {
     width: 100vw;
 }
 
+* {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
 #stats {
     background-color: gray;
     border-color: white;
@@ -56,3 +61,5 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
 }
+
+/* make smt to show user car meet is active */

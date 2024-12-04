@@ -1,0 +1,75 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    overflow: hidden;
+}
+
+* {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+header {
+    display: flex;
+    height: 50px;
+}
+
+h1 {
+    color: red;
+}
+
+#logo {
+    height: 45px;
+    margin: 0;
+    margin-left: 10.5vw;
+    padding-bottom: 0;
+}
+
+#container {
+    display: flex;
+    margin: auto;
+    width: 80vw;
+    height: 80vh;
+    background-color: aliceblue;
+    border: 5px solid blue;
+}
+
+#about-us {
+    margin: 0;
+    padding: 10px;
+    border-right: 5px solid blue;
+    width: 35vw;
+    font-family: "DM Serif Display", serif;
+    font-weight: 40;
+    font-style: normal;
+    font-size: 10px;
+}
+
+#content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 75vh;
+}
+
+.game {
+    display: flex;
+
+    p {
+        text-wrap: pretty;
+        font-family: "DM Serif Display", serif;
+        font-weight: 40;
+        font-style: normal;
+        font-size: 20px;
+        padding: 10px;
+    }
+}
+
+.img {
+    width: 300px;
+    height: 200px;
+}
