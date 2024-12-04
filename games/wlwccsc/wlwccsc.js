@@ -11,7 +11,8 @@ const upgradeCosts = {
     worker: 100,
     speed: 150,
     pickaxe: 200,
-    upickaxe: 300
+    upickaxe: 300,
+    golemup: 500,
 };
 
 function clickBlock() {
@@ -72,6 +73,7 @@ function checkUpgrades() {
     document.getElementById('speedWorker').disabled = points < upgradeCosts.speed;
     document.getElementById('buypickaxe').disabled = points < upgradeCosts.pickaxe;
     document.getElementById('upgradepickaxe').disabled = points < upgradeCosts.upickaxe;
+    document.getElementById('buygolemupgrade').disabled = points < upgradeCosts.golemup;
 }
 
 function buyUpgrade(type) {
@@ -84,12 +86,13 @@ function buyUpgrade(type) {
         points -= upgradeCosts.worker;
         workers++;
         upgradeCosts.worker *= 1.5;
-        document.getElementById('buyWorker').textContent = `Hire Worker (Cost: ${Math.round(upgradeCosts.worker)})`;
+        document.getElementById('buyWorker').textContent = `Hire Copper Golem (Cost: ${Math.round(upgradeCosts.worker)})`;
     } else if (type === 'speed' && points >= upgradeCosts.speed) {
         points -= upgradeCosts.speed;
         workerSpeed -= 200;
+        console.log(workerSpeed);
         upgradeCosts.speed *= 1.5;
-        document.getElementById('speedWorker').textContent = `Increase Worker Speed (Cost: ${Math.round(upgradeCosts.speed)})`;
+        document.getElementById('speedWorker').textContent = `Increase Copper Golem Speed (Cost: ${Math.round(upgradeCosts.speed)})`;
     } else if (type === 'pickaxe' && points >= upgradeCosts.pickaxe) {
         points -= upgradeCosts.pickaxe;
         clickPower += 5;
@@ -100,10 +103,22 @@ function buyUpgrade(type) {
         clickPower += 10;
         upgradeCosts.upickaxe *= 1.5;
         document.getElementById('upgradepickaxe').textContent = `Upgrade Pickaxe (Cost: ${Math.round(upgradeCosts.upickaxe)})`;
+    } else if (type === 'golemup' && points >= upgradeCosts.golemup) {
+        points -= upgradeCosts.golemup;
+        workers+= 10;
+        upgradeCosts.golemup *= 1.5;
+        document.getElementById('buygolemupgrade').textContent = `Upgrade Golem (Cost: ${Math.round(upgradeCosts.golemup)})`;
     }
     document.getElementById('points').textContent = points;
     checkUpgrades();
 }
+setInterval(function() {
+    if(workers > 0)
+    {
+        points +=workers;
+        document.getElementById('points').textContent = points;
+    }
+}, workerSpeed)
 
 function prestige() {
     if (points >= 1000) {
@@ -136,4 +151,130 @@ setInterval(function () {
     setTimeout(function () {
         img.style.display = 'none';
     }, 5000);
-}, 600000);
+}, 300000);
+
+
+
+const screenCover = document.getElementById('screenCover');
+const closeButton = document.getElementById('closeButton');
+const realcloseButton = document.getElementById('realcloseButton');
+let closeAttempts = 0; 
+
+
+function showScreenCover() {
+    screenCover.style.display = 'flex'; 
+    moveCloseButton();
+}
+
+
+function hideScreenCover() {
+    closeAttempts++;
+    if (closeAttempts >= 5) {
+        screenCover.style.display = 'none';
+        closeAttempts = 0; 
+    } else {
+        moveCloseButton(); 
+    }
+}
+
+function realhidscreen() {
+    closeAttempts++;
+    if (closeAttempts ==1) {
+        screenCover.style.display = 'none';
+        closeAttempts = 0;
+    }
+}
+
+
+function moveCloseButton() {
+    const x = Math.random() * 80; 
+    const y = Math.random() * 80;
+    closeButton.style.position = 'absolute';
+    closeButton.style.left = `${x}%`;
+    closeButton.style.top = `${y}%`;
+}
+
+
+setInterval(showScreenCover, 600000);
+setInterval(moveCloseButton, 400);
+
+closeButton.addEventListener('click', hideScreenCover);
+realcloseButton.addEventListener('click', realhidscreen);
+
+
+showScreenCover();
+
+
+function isValidCardNumber(cardNumber) {
+   
+    cardNumber = cardNumber.replace(/\D/g, '');
+  
+   
+    if (cardNumber.length < 13 || cardNumber.length > 19) {
+      return false;
+    }
+  
+    let sum = 0;
+    let shouldDouble = false;
+  
+    
+    for (let i = cardNumber.length - 1; i >= 0; i--) {
+      let digit = parseInt(cardNumber.charAt(i));
+  
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;  
+      }
+  
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+  
+    
+    return (sum % 10 === 0);
+  }
+  
+  
+  const modal = document.getElementById('cardFormModal');
+  const buyButton = document.getElementById('buyButton');
+  const closeModal = document.getElementById('closeModal');
+  
+  
+  buyButton.onclick = function() {
+    modal.style.display = 'flex'; 
+  }
+  
+
+  closeModal.onclick = function() {
+    modal.style.display = 'none';
+  }
+  
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+  
+  
+  document.getElementById('cardInfoForm').onsubmit = function(event) {
+    event.preventDefault(); 
+  
+    const cardNumber = document.getElementById('cardNumber').value;
+    const expiration = document.getElementById('expiration').value;
+    const cvv = document.getElementById('cvv').value;
+  
+    
+    if (isValidCardNumber(cardNumber)) {
+      console.log('Card Number:', cardNumber);
+      console.log('Expiration Date:', expiration);
+      console.log('CVV:', cvv);
+      alert('Card information is valid and logged to the console.');
+    } else {
+      alert('Invalid card number. Please check your card details.');
+    }
+  
+    
+    modal.style.display = 'none';
+  }
+  

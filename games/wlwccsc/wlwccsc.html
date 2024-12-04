@@ -11,7 +11,7 @@
 <body>
     <h1>Waxed Lightly Weathered Cut Copper Stairs Clicker</h1>
     <h2>Wax Level: <span id="waxLevel">0</span></h2>
-    <h2>Points: <span id="points">0</span></h2>
+    <h2>Waxed Lightly Weathered Cut Copper Stairs Shards: <span id="points">0</span></h2>
     <div id="waxProgress">
         <div id="waxFill" style="width: 0%;"></div>
     </div>
@@ -30,13 +30,47 @@
             200)</button>
         <button class="button" id="upgradepickaxe" onclick="buyUpgrade('upickaxe')" disabled>Upgrade Pickaxe (Cost:
             300)</button>
+        <button class="button" id="buygolemupgrade" onclick="buyUpgrade('golemup')" disabled>Upgrade Copper Golem (Cost:
+            500)</button>
     </div>
     <div id="prestige">
         <button class="button" id="prestigeButton" onclick="prestige()" disabled>Prestige for Wax Coins</button>
     </div>
     <button id="muteButton" onclick="toggleMute()">Mute</button>
     <div id="tooltip"></div>
+    <div id="screenCover">
+        Are you tired of walking up or down boring stairs?<br>
+        Introducing Waxed Lightly Weathered Cut Copper Stairs!
+        <img src="/games/wlwccsc/images/WLWCCSC.jpg" alt="Copper"><br>
+        Only 45 easy payments of 99.95!!!<br>
+        Come get your Waxed Lightly Weathered Cut Copper Stairs today!!!!
+        <button id="closeButton" tabindex="-1">Close?</button>
+        <button id="realcloseButton" tabindex="-1">eep</button>
+    </div>
 
+    <div class="container">
+    <button id="buyButton" class="buy-button">No more ads</button>
+  
+    
+    <div id="cardFormModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Enter Card Information</h2>
+        <form id="cardInfoForm">
+          <label for="cardNumber">Card Number:</label>
+          <input type="text" id="cardNumber" name="cardNumber" required placeholder="1234 5678 1234 5678">
+          
+          <label for="expiration">Expiration Date:</label>
+          <input type="text" id="expiration" name="expiration" required placeholder="MM/YY">
+          
+          <label for="cvv">CVV:</label>
+          <input type="text" id="cvv" name="cvv" required placeholder="123">
+  
+          <button type="submit" class="submit-button">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
     <script src="/games/wlwccsc/wlwccsc.js"></script>
 </body>
 
