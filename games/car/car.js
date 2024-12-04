@@ -16,6 +16,7 @@ var carmeetOne = new Audio('assets/carmeet1.mp3');
 var carmeetTwo = new Audio('assets/carmeet2.mp3');
 var carmeetThree = new Audio('assets/carmeet3.mp3');
 var carmeetFour = new Audio('assets/carmeet4.mp3');
+var carmeetEnd = new Audio('assets/carmeetend.mp3');
 
 multiplier = 1;
 point = 100;
@@ -32,6 +33,7 @@ carmeetOne.volume = 1;
 carmeetTwo.volume = 1;
 carmeetThree.volume = 1;
 carmeetFour.volume = 1;
+carmeetEnd.volume = 1;
 
 eventisOn = false;
 scappers = false;
@@ -136,7 +138,7 @@ function addppsec() {
 setInterval(addppsec, 1000);
 
 function carEvent() {
-    let randomEvent = Math.floor(Math.random() * 20);
+    let randomEvent = Math.floor(Math.random() * 10);
     console.log(randomEvent);
 
     if (randomEvent === 0 && !eventisOn) {
@@ -146,6 +148,7 @@ function carEvent() {
 
         function reset() {
             eventisOn = false;
+            carmeetEnd.play();
             multi.innerHTML = "Your Multiplier " + multiplier;
         }
     }
