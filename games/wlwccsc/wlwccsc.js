@@ -6,6 +6,10 @@ let waxLevel = 0;
 let waxCoins = 0;
 let isMuted = false;
 
+
+var adsound = new Audio('assets/ad.mp3');
+
+
 const upgradeCosts = {
     click: 50,
     worker: 100,
@@ -13,6 +17,12 @@ const upgradeCosts = {
     pickaxe: 200,
     upickaxe: 300,
     golemup: 500,
+    irongolem: 1000,
+    superpickaxe: 1500
+};
+const waxUpgradeCosts = {
+    waxWorker: 25,
+    waxClick: 50
 };
 
 function clickBlock() {
@@ -43,6 +53,11 @@ function levelUp() {
     waxLevel++;
     document.getElementById('waxLevel').textContent = waxLevel;
     document.getElementById('waxFill').style.backgroundColor = getRandomColor();
+    checkPrestigeEligibility();
+}
+
+function checkPrestigeEligibility() {
+    document.getElementById('prestigeButton').disabled = waxLevel < 5;
 }
 
 function getRandomColor() {
@@ -64,6 +79,8 @@ function hideTooltip() {
 
 function toggleMute() {
     isMuted = !isMuted;
+    var mutesound = new Audio('assets/mute.mp3');
+    mutesound.play()
     document.getElementById('muteButton').textContent = isMuted ? 'Unmute' : 'Mute';
 }
 
@@ -74,40 +91,68 @@ function checkUpgrades() {
     document.getElementById('buypickaxe').disabled = points < upgradeCosts.pickaxe;
     document.getElementById('upgradepickaxe').disabled = points < upgradeCosts.upickaxe;
     document.getElementById('buygolemupgrade').disabled = points < upgradeCosts.golemup;
+    document.getElementById('buyirongolem').disabled = points < upgradeCosts.irongolem;
+    document.getElementById('buysuperpickaxe').disabled = points < upgradeCosts.superpickaxe;
 }
 
 function buyUpgrade(type) {
     if (type === 'click' && points >= upgradeCosts.click) {
         points -= upgradeCosts.click;
         clickPower++;
+        const sound = new Audio('assets/buy.mp3');
+        sound.play();
         upgradeCosts.click *= 1.5;
         document.getElementById('upgradeClick').textContent = `Upgrade Click Power (Cost: ${Math.round(upgradeCosts.click)})`;
     } else if (type === 'worker' && points >= upgradeCosts.worker) {
         points -= upgradeCosts.worker;
         workers++;
+        const sound = new Audio('assets/buy.mp3');
+        sound.play();
         upgradeCosts.worker *= 1.5;
         document.getElementById('buyWorker').textContent = `Hire Copper Golem (Cost: ${Math.round(upgradeCosts.worker)})`;
     } else if (type === 'speed' && points >= upgradeCosts.speed) {
         points -= upgradeCosts.speed;
         workerSpeed -= 200;
+        const sound = new Audio('assets/buy.mp3');
+        sound.play();
         console.log(workerSpeed);
         upgradeCosts.speed *= 1.5;
         document.getElementById('speedWorker').textContent = `Increase Copper Golem Speed (Cost: ${Math.round(upgradeCosts.speed)})`;
     } else if (type === 'pickaxe' && points >= upgradeCosts.pickaxe) {
         points -= upgradeCosts.pickaxe;
         clickPower += 5;
+        const sound = new Audio('assets/buy.mp3');
+        sound.play();
         upgradeCosts.pickaxe *= 1.5;
         document.getElementById('buypickaxe').textContent = `Buy Pickaxe (Cost: ${Math.round(upgradeCosts.pickaxe)})`;
     } else if (type === 'upickaxe' && points >= upgradeCosts.upickaxe) {
         points -= upgradeCosts.upickaxe;
         clickPower += 10;
+        const sound = new Audio('assets/buy.mp3');
+        sound.play();
         upgradeCosts.upickaxe *= 1.5;
         document.getElementById('upgradepickaxe').textContent = `Upgrade Pickaxe (Cost: ${Math.round(upgradeCosts.upickaxe)})`;
     } else if (type === 'golemup' && points >= upgradeCosts.golemup) {
         points -= upgradeCosts.golemup;
         workers+= 10;
+        const sound = new Audio('assets/buy.mp3');
+        sound.play();
         upgradeCosts.golemup *= 1.5;
         document.getElementById('buygolemupgrade').textContent = `Upgrade Golem (Cost: ${Math.round(upgradeCosts.golemup)})`;
+    } else if (type === 'irongolem' && points >= upgradeCosts.irongolem) {
+        points -= upgradeCosts.irongolem;
+        workers += 15;
+        const sound = new Audio('assets/buy.mp3');
+        sound.play();
+        upgradeCosts.irongolem *= 1.5;
+        document.getElementById('buyirongolem').textContent = `Buy Iron Golem (Cost: ${Math.round(upgradeCosts.irongolem)})`;
+    }else if (type === 'superpickaxe' && points >= upgradeCosts.superpickaxe) {
+        points -= upgradeCosts.superpickaxe;
+        clickPower += 20;
+        const sound = new Audio('assets/buy.mp3');
+        sound.play();
+        upgradeCosts.superpickaxe *= 1.5;
+        document.getElementById('buysuperpickaxe').textContent = `Buy Super Pickaxe (Cost: ${Math.round(upgradeCosts.superpickaxe)})`;
     }
     document.getElementById('points').textContent = points;
     checkUpgrades();
@@ -121,15 +166,19 @@ setInterval(function() {
 }, workerSpeed)
 
 function prestige() {
-    if (points >= 1000) {
-        waxCoins++;
+    if (waxLevel >= 5) {
+        waxCoins++; 
         points = 0;
-        waxLevel = 0;
+        waxLevel = 0; 
         document.getElementById('points').textContent = points;
         document.getElementById('waxLevel').textContent = waxLevel;
-        document.getElementById('prestigeButton').disabled = true;
+        updateWaxCoinsDisplay(); 
+        document.getElementById('prestigeButton').disabled = true; 
+        checkWaxUpgrades(); 
     }
 }
+
+
 setInterval(function () {
     const img = new Image();
     img.src = 'images/mason.jpg';
@@ -151,7 +200,7 @@ setInterval(function () {
     setTimeout(function () {
         img.style.display = 'none';
     }, 5000);
-}, 300000);
+}, 200000);
 
 
 
@@ -162,12 +211,15 @@ let closeAttempts = 0;
 
 
 function showScreenCover() {
+  adsound.play()
     screenCover.style.display = 'flex'; 
     moveCloseButton();
 }
 
 
 function hideScreenCover() {
+    const sound = new Audio('assets/closead.mp3');
+    sound.play(); 
     closeAttempts++;
     if (closeAttempts >= 5) {
         screenCover.style.display = 'none';
@@ -195,86 +247,45 @@ function moveCloseButton() {
 }
 
 
-setInterval(showScreenCover, 600000);
-setInterval(moveCloseButton, 400);
+setInterval(showScreenCover, 300000);
+setInterval(moveCloseButton, 600);
 
 closeButton.addEventListener('click', hideScreenCover);
 realcloseButton.addEventListener('click', realhidscreen);
 
+function updateWaxCoinsDisplay() {
+    document.getElementById('waxCoins').textContent = waxCoins;
+    checkWaxUpgrades(); 
+}
 
-showScreenCover();
-
-
-function isValidCardNumber(cardNumber) {
-   
-    cardNumber = cardNumber.replace(/\D/g, '');
-  
-   
-    if (cardNumber.length < 13 || cardNumber.length > 19) {
-      return false;
+updateWaxCoinsDisplay();  
+document.getElementById('waxCoins').textContent = waxCoins;
+function buyWaxCoinUpgrade(type) {
+    if (type === 'waxWorker' && waxCoins >= waxUpgradeCosts.waxWorker) {
+        waxCoins -= waxUpgradeCosts.waxWorker; 
+        workers += 2500; 
+        const sound = new Audio('assets/horay.mp3');
+        sound.play();
+        waxUpgradeCosts.waxWorker *= 1.5;
+        document.getElementById('buyWaxWorker').textContent = 
+            `Hire Wax Worker (Cost: ${Math.round(waxUpgradeCosts.waxWorker)} Wax Coins)`;
+    } else if (type === 'waxClick' && waxCoins >= waxUpgradeCosts.waxClick) {
+        waxCoins -= waxUpgradeCosts.waxClick;
+        clickPower += 3000;
+        const sound = new Audio('assets/horay.mp3');
+        sound.play(); 
+        waxUpgradeCosts.waxClick *= 1.5; 
+        document.getElementById('upgradeWaxClick').textContent = 
+            `Upgrade Wax Click Power (Cost: ${Math.round(waxUpgradeCosts.waxClick)} Wax Coins)`;
     }
-  
-    let sum = 0;
-    let shouldDouble = false;
-  
-    
-    for (let i = cardNumber.length - 1; i >= 0; i--) {
-      let digit = parseInt(cardNumber.charAt(i));
-  
-      if (shouldDouble) {
-        digit *= 2;
-        if (digit > 9) digit -= 9;  
-      }
-  
-      sum += digit;
-      shouldDouble = !shouldDouble;
-    }
-  
-    
-    return (sum % 10 === 0);
-  }
-  
-  
-  const modal = document.getElementById('cardFormModal');
-  const buyButton = document.getElementById('buyButton');
-  const closeModal = document.getElementById('closeModal');
-  
-  
-  buyButton.onclick = function() {
-    modal.style.display = 'flex'; 
-  }
-  
+    document.getElementById('waxCoins').textContent = waxCoins; 
+    checkWaxUpgrades();
+}
 
-  closeModal.onclick = function() {
-    modal.style.display = 'none';
-  }
-  
+function checkWaxUpgrades() {
+    
+    document.getElementById('buyWaxWorker').disabled = waxCoins < waxUpgradeCosts.waxWorker;
+    document.getElementById('upgradeWaxClick').disabled = waxCoins < waxUpgradeCosts.waxClick;
+}
 
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = 'none';
-    }
-  }
-  
-  
-  document.getElementById('cardInfoForm').onsubmit = function(event) {
-    event.preventDefault(); 
-  
-    const cardNumber = document.getElementById('cardNumber').value;
-    const expiration = document.getElementById('expiration').value;
-    const cvv = document.getElementById('cvv').value;
-  
-    
-    if (isValidCardNumber(cardNumber)) {
-      console.log('Card Number:', cardNumber);
-      console.log('Expiration Date:', expiration);
-      console.log('CVV:', cvv);
-      alert('Card information is valid and logged to the console.');
-    } else {
-      alert('Invalid card number. Please check your card details.');
-    }
-  
-    
-    modal.style.display = 'none';
-  }
-  
+
