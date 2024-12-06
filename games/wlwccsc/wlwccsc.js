@@ -22,7 +22,8 @@ const upgradeCosts = {
 };
 const waxUpgradeCosts = {
     waxWorker: 25,
-    waxClick: 50
+    waxClick: 50,
+    waxpickaxe: 75
 };
 
 function clickBlock() {
@@ -93,6 +94,7 @@ function checkUpgrades() {
     document.getElementById('buygolemupgrade').disabled = points < upgradeCosts.golemup;
     document.getElementById('buyirongolem').disabled = points < upgradeCosts.irongolem;
     document.getElementById('buysuperpickaxe').disabled = points < upgradeCosts.superpickaxe;
+    document.getElementById('buywaxpickaxe').disabled = points < upgradeCosts.waxpickaxe;
 }
 
 function buyUpgrade(type) {
@@ -101,14 +103,14 @@ function buyUpgrade(type) {
         clickPower++;
         const sound = new Audio('assets/buy.mp3');
         sound.play();
-        upgradeCosts.click *= 1.5;
+        upgradeCosts.click *= 2;
         document.getElementById('upgradeClick').textContent = `Upgrade Click Power (Cost: ${Math.round(upgradeCosts.click)})`;
     } else if (type === 'worker' && points >= upgradeCosts.worker) {
         points -= upgradeCosts.worker;
         workers++;
         const sound = new Audio('assets/buy.mp3');
         sound.play();
-        upgradeCosts.worker *= 1.5;
+        upgradeCosts.worker *= 2;
         document.getElementById('buyWorker').textContent = `Hire Copper Golem (Cost: ${Math.round(upgradeCosts.worker)})`;
     } else if (type === 'speed' && points >= upgradeCosts.speed) {
         points -= upgradeCosts.speed;
@@ -116,42 +118,42 @@ function buyUpgrade(type) {
         const sound = new Audio('assets/buy.mp3');
         sound.play();
         console.log(workerSpeed);
-        upgradeCosts.speed *= 1.5;
+        upgradeCosts.speed *= 2;
         document.getElementById('speedWorker').textContent = `Increase Copper Golem Speed (Cost: ${Math.round(upgradeCosts.speed)})`;
     } else if (type === 'pickaxe' && points >= upgradeCosts.pickaxe) {
         points -= upgradeCosts.pickaxe;
         clickPower += 5;
         const sound = new Audio('assets/buy.mp3');
         sound.play();
-        upgradeCosts.pickaxe *= 1.5;
+        upgradeCosts.pickaxe *= 2;
         document.getElementById('buypickaxe').textContent = `Buy Pickaxe (Cost: ${Math.round(upgradeCosts.pickaxe)})`;
     } else if (type === 'upickaxe' && points >= upgradeCosts.upickaxe) {
         points -= upgradeCosts.upickaxe;
         clickPower += 10;
         const sound = new Audio('assets/buy.mp3');
         sound.play();
-        upgradeCosts.upickaxe *= 1.5;
+        upgradeCosts.upickaxe *= 2;
         document.getElementById('upgradepickaxe').textContent = `Upgrade Pickaxe (Cost: ${Math.round(upgradeCosts.upickaxe)})`;
     } else if (type === 'golemup' && points >= upgradeCosts.golemup) {
         points -= upgradeCosts.golemup;
         workers+= 10;
         const sound = new Audio('assets/buy.mp3');
         sound.play();
-        upgradeCosts.golemup *= 1.5;
+        upgradeCosts.golemup *= 2;
         document.getElementById('buygolemupgrade').textContent = `Upgrade Golem (Cost: ${Math.round(upgradeCosts.golemup)})`;
     } else if (type === 'irongolem' && points >= upgradeCosts.irongolem) {
         points -= upgradeCosts.irongolem;
         workers += 15;
         const sound = new Audio('assets/buy.mp3');
         sound.play();
-        upgradeCosts.irongolem *= 1.5;
+        upgradeCosts.irongolem *= 2;
         document.getElementById('buyirongolem').textContent = `Buy Iron Golem (Cost: ${Math.round(upgradeCosts.irongolem)})`;
     }else if (type === 'superpickaxe' && points >= upgradeCosts.superpickaxe) {
         points -= upgradeCosts.superpickaxe;
         clickPower += 20;
         const sound = new Audio('assets/buy.mp3');
         sound.play();
-        upgradeCosts.superpickaxe *= 1.5;
+        upgradeCosts.superpickaxe *= 2;
         document.getElementById('buysuperpickaxe').textContent = `Buy Super Pickaxe (Cost: ${Math.round(upgradeCosts.superpickaxe)})`;
     }
     document.getElementById('points').textContent = points;
@@ -263,20 +265,28 @@ document.getElementById('waxCoins').textContent = waxCoins;
 function buyWaxCoinUpgrade(type) {
     if (type === 'waxWorker' && waxCoins >= waxUpgradeCosts.waxWorker) {
         waxCoins -= waxUpgradeCosts.waxWorker; 
-        workers += 2500; 
+        workers += 4500; 
         const sound = new Audio('assets/horay.mp3');
         sound.play();
-        waxUpgradeCosts.waxWorker *= 1.5;
+        waxUpgradeCosts.waxWorker *= 2;
         document.getElementById('buyWaxWorker').textContent = 
             `Hire Wax Worker (Cost: ${Math.round(waxUpgradeCosts.waxWorker)} Wax Coins)`;
     } else if (type === 'waxClick' && waxCoins >= waxUpgradeCosts.waxClick) {
         waxCoins -= waxUpgradeCosts.waxClick;
-        clickPower += 3000;
+        clickPower += 5000;
         const sound = new Audio('assets/horay.mp3');
         sound.play(); 
-        waxUpgradeCosts.waxClick *= 1.5; 
+        waxUpgradeCosts.waxClick *= 2; 
         document.getElementById('upgradeWaxClick').textContent = 
             `Upgrade Wax Click Power (Cost: ${Math.round(waxUpgradeCosts.waxClick)} Wax Coins)`;
+    } else if (type === 'waxpickaxe' && waxCoins >= waxUpgradeCosts.waxpickaxe) {
+        waxCoins -= waxUpgradeCosts.waxpickaxe;
+        clickPower += 5000;
+        const sound = new Audio('assets/horay.mp3');
+        sound.play(); 
+        waxUpgradeCosts.waxpickaxe *= 2; 
+        document.getElementById('buywaxpickaxe').textContent = 
+            `Buy Wax Pickaxe (Cost: ${Math.round(waxUpgradeCosts.waxpickaxe)} Wax Coins)`;
     }
     document.getElementById('waxCoins').textContent = waxCoins; 
     checkWaxUpgrades();
