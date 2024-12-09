@@ -17,6 +17,13 @@ var carmeetTwo = new Audio('assets/carmeet2.mp3');
 var carmeetThree = new Audio('assets/carmeet3.mp3');
 var carmeetFour = new Audio('assets/carmeet4.mp3');
 var carmeetEnd = new Audio('assets/carmeetend.mp3');
+var racerOne = new Audio('assets/racer1.mp3');
+var racerTwo = new Audio('assets/racer2.mp3');
+var racerThree = new Audio('assets/racer3.mp3');
+var partOne = new Audio('assets/part1.mp3');
+var partTwo = new Audio('assets/part2.mp3');
+var partThree = new Audio('assets/part3.mp3');
+var hey = new Audio('assets/hey.mp3');
 
 multiplier = 1;
 point = 100;
@@ -34,6 +41,13 @@ carmeetTwo.volume = 1;
 carmeetThree.volume = 1;
 carmeetFour.volume = 1;
 carmeetEnd.volume = 1;
+racerOne.volume = 1;
+racerTwo.volume = 1;
+racerThree.volume = 1;
+partOne.volume = 1;
+partTwo.volume = 1;
+partThree.volume = 1;
+hey.volume = 1;
 
 eventisOn = false;
 scappers = false;
@@ -82,7 +96,6 @@ function addPoint() {
         }
         partNum += point * multiplier * 2;
         part.innerHTML = Math.round(partNum) + " parts";
-        multi.innerHTML = "Your Multiplier " + multiplier * 2;
     }
 }
 
@@ -91,13 +104,23 @@ buyMech.addEventListener("click", buyM)
 function buyM() {
     if (partNum < 25) { }
     else {
+        let sound = Math.floor(Math.random() * 3);
+        if (sound === 0) {
+            partOne.currentTime = 0.1;
+            partOne.play();
+        } else if (sound === 1) {
+            partTwo.currentTime = 0.1;
+            partTwo.play();
+        } else {
+            partThree.currentTime = 0.1;
+            partThree.play();
+        }
         partNum -= 25;
         mechNum += 1;
         multiplier += .2;
         multiplier = Math.round(multiplier * 10) / 10;
         mechanic.innerHTML = mechNum + " mechanics";
         part.innerHTML = Math.round(partNum) + " parts";
-        multi.innerHTML = "Your Multiplier " + multiplier;
     }
 }
 
@@ -106,13 +129,23 @@ buyRace.addEventListener("click", buyR)
 function buyR() {
     if (partNum < 100) { }
     else {
+        let sound = Math.floor(Math.random() * 3);
+        if (sound === 0) {
+            racerOne.currentTime = 0.1;
+            racerOne.play();
+        } else if (sound === 1) {
+            racerTwo.currentTime = 0.1;
+            racerTwo.play();
+        } else {
+            racerThree.currentTime = 0.1;
+            racerThree.play();
+        }
         partNum -= 100;
         raceNum += 1;
         multiplier += 1.5;
         multiplier = Math.round(multiplier * 10) / 10;
         racer.innerHTML = raceNum + " racers";
         part.innerHTML = Math.round(partNum) + " parts";
-        multi.innerHTML = "Your Multiplier " + multiplier;
     }
 }
 
@@ -121,24 +154,44 @@ buyscap.addEventListener("click", buyS)
 function buyS() {
     if (partNum < 10) { }
     else {
+        hey.currentTime = 1;
+        hey.play();
         scappers = true;
         scapNum += 1;
         partNum -= 10;
         ppsecNum += .5;
         scap.innerHTML = scapNum + " scappers";
-        ppsec.innerHTML = ppsecNum + " parts of second";
     }
 }
 
 function addppsec() {
-    partNum += ppsecNum;
-    part.innerHTML = Math.round(partNum) + " parts";
+    if (eventisOn){
+        partNum += ppsecNum * 2;
+        part.innerHTML = Math.round(partNum) + " parts";
+    }
+    else {
+        partNum += ppsecNum;
+        part.innerHTML = Math.round(partNum) + " parts";
+    }
+}
+
+function updateStats() {
+    if (eventisOn){
+        ppsec.innerHTML = ppsecNum * 2 + " parts per second";
+        multi.innerHTML = "Multiplier: " + multiplier * 2;
+    }
+    else {
+        ppsec.innerHTML = ppsecNum + " parts per second";
+        multi.innerHTML = "Multiplier: " + multiplier;
+    }
 }
 
 setInterval(addppsec, 1000);
 
+setInterval(updateStats, 50);
+
 function carEvent() {
-    let randomEvent = Math.floor(Math.random() * 10);
+    let randomEvent = Math.floor(Math.random() * 60);
     console.log(randomEvent);
 
     if (randomEvent === 0 && !eventisOn) {
