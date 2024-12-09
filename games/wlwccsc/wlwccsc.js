@@ -288,6 +288,7 @@ function checkWaxUpgrades() {
     
     document.getElementById('buyWaxWorker').disabled = waxCoins < waxUpgradeCosts.waxWorker;
     document.getElementById('upgradeWaxClick').disabled = waxCoins < waxUpgradeCosts.waxClick;
+    
 }
 
 
