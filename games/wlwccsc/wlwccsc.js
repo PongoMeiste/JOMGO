@@ -1,5 +1,6 @@
 let points = 0;
 let clickPower = 1;
+let waxLevelThreshold = 5;
 let workers = 0;
 let workerSpeed = 1000;
 let waxLevel = 0;
@@ -136,7 +137,7 @@ function buyUpgrade(type) {
         document.getElementById('upgradepickaxe').textContent = `Upgrade Pickaxe (Cost: ${Math.round(upgradeCosts.upickaxe)})`;
     } else if (type === 'golemup' && points >= upgradeCosts.golemup) {
         points -= upgradeCosts.golemup;
-        workers+= 10;
+        workers += 10;
         const sound = new Audio('assets/buy.mp3');
         sound.play();
         upgradeCosts.golemup *= 2;
@@ -148,7 +149,7 @@ function buyUpgrade(type) {
         sound.play();
         upgradeCosts.irongolem *= 2;
         document.getElementById('buyirongolem').textContent = `Buy Iron Golem (Cost: ${Math.round(upgradeCosts.irongolem)})`;
-    }else if (type === 'superpickaxe' && points >= upgradeCosts.superpickaxe) {
+    } else if (type === 'superpickaxe' && points >= upgradeCosts.superpickaxe) {
         points -= upgradeCosts.superpickaxe;
         clickPower += 20;
         const sound = new Audio('assets/buy.mp3');
@@ -159,27 +160,27 @@ function buyUpgrade(type) {
     document.getElementById('points').textContent = points;
     checkUpgrades();
 }
-setInterval(function() {
-    if(workers > 0)
-    {
-        points +=workers;
+setInterval(function () {
+    if (workers > 0) {
+        points += workers;
         document.getElementById('points').textContent = points;
     }
 }, workerSpeed)
 
 function prestige() {
-    if (waxLevel >= 5) {
-        waxCoins++; 
+    if (waxLevel >= waxLevelThreshold) {
+        waxCoins++;
         points = 0;
-        waxLevel = 0; 
+        waxLevel = 0;
+        waxLevelThreshold += 5; 
         document.getElementById('points').textContent = points;
         document.getElementById('waxLevel').textContent = waxLevel;
-        updateWaxCoinsDisplay(); 
-        document.getElementById('prestigeButton').disabled = true; 
-        checkWaxUpgrades(); 
+        document.getElementById('prestigeButton').disabled = true;
+        updateWaxCoinsDisplay();
+        checkWaxUpgrades();
+        document.getElementById('waxLevelThresholdDisplay').textContent = `Next Prestige Threshold: ${waxLevelThreshold}`;
     }
 }
-
 
 setInterval(function () {
     const img = new Image();
@@ -209,31 +210,31 @@ setInterval(function () {
 const screenCover = document.getElementById('screenCover');
 const closeButton = document.getElementById('closeButton');
 const realcloseButton = document.getElementById('realcloseButton');
-let closeAttempts = 0; 
+let closeAttempts = 0;
 
 
 function showScreenCover() {
-  adsound.play()
-    screenCover.style.display = 'flex'; 
+    adsound.play()
+    screenCover.style.display = 'flex';
     moveCloseButton();
 }
 
 
 function hideScreenCover() {
     const sound = new Audio('assets/closead.mp3');
-    sound.play(); 
+    sound.play();
     closeAttempts++;
     if (closeAttempts >= 5) {
         screenCover.style.display = 'none';
-        closeAttempts = 0; 
+        closeAttempts = 0;
     } else {
-        moveCloseButton(); 
+        moveCloseButton();
     }
 }
 
 function realhidscreen() {
     closeAttempts++;
-    if (closeAttempts ==1) {
+    if (closeAttempts == 1) {
         screenCover.style.display = 'none';
         closeAttempts = 0;
     }
@@ -241,7 +242,7 @@ function realhidscreen() {
 
 
 function moveCloseButton() {
-    const x = Math.random() * 80; 
+    const x = Math.random() * 80;
     const y = Math.random() * 80;
     closeButton.style.position = 'absolute';
     closeButton.style.left = `${x}%`;
@@ -257,38 +258,38 @@ realcloseButton.addEventListener('click', realhidscreen);
 
 function updateWaxCoinsDisplay() {
     document.getElementById('waxCoins').textContent = waxCoins;
-    checkWaxUpgrades(); 
+    checkWaxUpgrades();
 }
 
-updateWaxCoinsDisplay();  
+updateWaxCoinsDisplay();
 document.getElementById('waxCoins').textContent = waxCoins;
 function buyWaxCoinUpgrade(type) {
     if (type === 'waxWorker' && waxCoins >= waxUpgradeCosts.waxWorker) {
-        waxCoins -= waxUpgradeCosts.waxWorker; 
-        workers += 4500; 
+        waxCoins -= waxUpgradeCosts.waxWorker;
+        workers += 4500;
         const sound = new Audio('assets/horay.mp3');
         sound.play();
         waxUpgradeCosts.waxWorker *= 2;
-        document.getElementById('buyWaxWorker').textContent = 
+        document.getElementById('buyWaxWorker').textContent =
             `Hire Wax Worker (Cost: ${Math.round(waxUpgradeCosts.waxWorker)} Wax Coins)`;
     } else if (type === 'waxClick' && waxCoins >= waxUpgradeCosts.waxClick) {
         waxCoins -= waxUpgradeCosts.waxClick;
         clickPower += 5000;
         const sound = new Audio('assets/horay.mp3');
-        sound.play(); 
-        waxUpgradeCosts.waxClick *= 2; 
-        document.getElementById('upgradeWaxClick').textContent = 
+        sound.play();
+        waxUpgradeCosts.waxClick *= 2;
+        document.getElementById('upgradeWaxClick').textContent =
             `Upgrade Wax Click Power (Cost: ${Math.round(waxUpgradeCosts.waxClick)} Wax Coins)`;
-    } 
-    document.getElementById('waxCoins').textContent = waxCoins; 
+    }
+    document.getElementById('waxCoins').textContent = waxCoins;
     checkWaxUpgrades();
 }
 
 function checkWaxUpgrades() {
-    
+
     document.getElementById('buyWaxWorker').disabled = waxCoins < waxUpgradeCosts.waxWorker;
     document.getElementById('upgradeWaxClick').disabled = waxCoins < waxUpgradeCosts.waxClick;
-    
+
 }
 
 
