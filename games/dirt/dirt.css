@@ -1,0 +1,207 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('images/Dirt.png');
+    color: white;
+    cursor: none;
+    overflow: hidden;
+    margin-top: 150px;
+    font-weight: bold;
+    user-select: none;
+}
+
+#add {
+    border: none;
+    background: none;
+    width: 400px;
+    height: 400px;
+    cursor: none;
+}
+#upgrades {
+    width: 500px;
+    height: 500px;
+    margin-right: 1100px;
+    margin-top: -500px;
+    background-image: url('images/CraftingTable.png');
+}
+
+
+#upgrades > button {
+    margin: 5px;
+    margin-top: 10px;
+    width: 235px;
+    height: 50px;
+    font-size: 80%;
+    cursor: none;
+    background-color: saddlebrown;
+    font-weight: bold;
+    border: 2px solid black;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+#add {
+    background-position: center;
+    cursor: none;
+}
+#cursorImg {
+    position: absolute;
+    pointer-events: none;
+    visibility: hidden;
+    width: 100px;
+    height: 100px;
+    cursor: none;
+    -webkit-user-drag: none;
+}
+
+#add:hover {
+    cursor: none;
+    cursor: none;
+}
+
+#add {
+    position: relative;
+    display: inline-block;
+    border: none;
+    padding: 0;
+    cursor: none;
+}
+
+@keyframes rotate360 {
+    from {
+        transform: rotate(0deg); /* Start at 0 degrees */
+    }
+    to {
+        transform: rotate(360deg); /* End at 360 degrees */
+    }
+}
+#GLOW {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    animation: rotate360 5s infinite linear;
+    cursor: none;
+}
+
+#enchants {
+    background-image: url('images/Enchants.png');
+    width: 500px;
+    height: 500px;
+    margin-left: 1000px;
+    margin-top: -500px;
+}
+#enchants > button {
+    margin-left: 135px;
+    width: 45%;
+    height: 50px;
+    font-size: large;
+    cursor: none;
+    border: 2px solid black;
+    font-weight: bold;
+    background-color: #a09172
+}
+
+#fortune {
+    margin-top: 140px;
+}
+#efficiency {
+    margin-top: 50px;
+}
+
+#names {
+    background-color: rgba(15, 15, 15, 0.61);
+    border-radius: 10px;
+    align-items: center;
+    height: 40px;
+    width: 550px;
+}
+#name {
+    text-align: center;
+    margin-top: 0
+}
+
+#changeNamePopup {
+    width: 400px;
+    flex-direction: column;
+    height: 300px;
+    background-color: rgba(15, 15, 15, 0.904);
+    position: absolute;
+    margin-top: 10%;
+    border-radius: 50px;
+    align-items: center;
+    font-size: large;
+    font-weight: bold;
+    display: none;
+}
+#changeNamePopup>input {
+    margin-top: 20px;
+    width: 70%;
+    height: 50px;
+    font-size: large;
+    text-align: center;
+    font-weight: bold;
+}
+
+#gear {
+    width: 5%;
+    position: absolute;
+    margin-left: 80%;
+    margin-top: -50px;
+}
+
+#longBoy {
+    width: 100%;
+    height: 5000px;
+    border: 1px solid black;
+    position: absolute;
+    z-index: -1;
+}
+
+#buttons {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 15%;
+}
+
+#buttons > button {
+    margin-left: 10px;
+    width: 25%;
+}
+
+#settingsPopup {
+    width: 450px;
+    flex-direction: column;
+    height: 325px;
+    background-color: rgba(15, 15, 15, 0.904);
+    position: absolute;
+    margin-top: 10%;
+    border-radius: 50px;
+    align-items: center;
+    font-size: large;
+    font-weight: bold;
+    display: none;
+}
+
+.settingsButtons {
+    height: 50px;
+    width: 70%;
+    border-radius: 20px;
+    font-size: xx-large;
+    margin-top: 10px;
+}
+.homeButton {
+    height: 50px;
+    width: 315px;
+    border-radius: 20px;
+    font-size: xx-large;
+    margin-top: 10px;
+}
