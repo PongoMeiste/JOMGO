@@ -279,15 +279,7 @@ function buyWaxCoinUpgrade(type) {
         waxUpgradeCosts.waxClick *= 2; 
         document.getElementById('upgradeWaxClick').textContent = 
             `Upgrade Wax Click Power (Cost: ${Math.round(waxUpgradeCosts.waxClick)} Wax Coins)`;
-    } else if (type === 'waxpickaxe' && waxCoins >= waxUpgradeCosts.waxpickaxe) {
-        waxCoins -= waxUpgradeCosts.waxpickaxe;
-        clickPower += 5000;
-        const sound = new Audio('assets/horay.mp3');
-        sound.play(); 
-        waxUpgradeCosts.waxpickaxe *= 2; 
-        document.getElementById('buywaxpickaxe').textContent = 
-            `Buy Wax Pickaxe (Cost: ${Math.round(waxUpgradeCosts.waxpickaxe)} Wax Coins)`;
-    }
+    } 
     document.getElementById('waxCoins').textContent = waxCoins; 
     checkWaxUpgrades();
 }
