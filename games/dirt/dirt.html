@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dirt.css">
+    <title>Dirt Clicker</title>
+    <link rel="icon" type="image/x-icon" href="images/dirtBlock.png">
+</head>
+
+<body>
+    <div id="longBoy" style="margin-top: -150px;"></div>
+    <img src="images/Gear.png" alt="settings" id="gear" onclick="settingsVisibility('gear')">
+    <img src="images/woodShovel.png" alt="woodShovel" id="cursorImg">
+    <div id="names">
+        <h1 id="name" onclick="popupVisibility()">Unnamed Dirt Clicker</h1>
+    </div>
+    <h3>Dirt: </h3>
+    <h3 id="dirtAmnt">N/A</h3>
+    <button id="add" onclick="addDirt()">
+        <img src="images/dirtBlock.png" alt="DIRT">
+        <img src="images/Glow.png" alt="Glow" id="GLOW">
+    </button>
+    <div id="changeNamePopup">
+        <h2>Name your clicker</h2>
+        <input type="text" id="nameInput">
+        <div id="buttons">
+            <button id="submit" onclick="changeName('submit')">Submit</button>
+            <button id="random" onclick="changeName('random')">Random</button>
+            <button id="cancel" onclick="changeName('cancel')">Cancel</button>
+        </div>
+    </div>
+    <div id="settingsPopup">
+        <h1>Music Volume <input type="range" value="100" min="1" max="100" id="volumeInput"></h1>
+        <h1>SFX Volume <input type="range" value="100" min="1" max="100" id="volumeInput2"></h1>
+        <button id="close" class="settingsButtons" onclick="settingsVisibility('close')">Close</button>
+        <a href="../../index.html">
+            <button class="homeButton">Home</button>
+        </a>
+    </div>
+    <div id="upgrades">
+        <button id="worker" onclick="buyUpgrade('worker')">Buy Worker: <span id="workerPrice">100</span> dirt</button>
+        <button id="workerSpeed" onclick="buyUpgrade('workerSpeed')">Increase worker speed: <span
+                id="workerSpeedPrice">150</span> dirt</button>
+        <button id="shovel" onclick="buyUpgrade('shovel')">Upgrade Shovel: <span id="shovelPrice">400</span>
+            dirt</button>
+        <button id="factory" onclick="buyUpgrade('factory')">Purchase Factory: <span id="factoryPrice">1.5k</span>
+            dirt</button>
+        <button id="factorySpeed" onclick="buyUpgrade('factorySpeed')">Increase Factory Speed: <span
+                id="factorySpeedPrice">3k</span> dirt</button>
+    </div>
+    <div id="enchants">
+        <button id="fortune" onclick="buyUpgrade('fortune')">Increase fortune level: <span
+                id="fortunePrice">50</span></button>
+        <button id="efficiency" onclick="buyUpgrade('efficiency')">Increase efficiency level: <span
+                id="efficiencyPrice">125</span></button>
+    </div>
+    <script src="dirt.js"></script>
+</body>
+
+</html>
